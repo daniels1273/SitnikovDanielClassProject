@@ -37,33 +37,25 @@ public class Game {
     private void move(String str){
         if (str.equals("w") && curY > 0){
             curY--;
-            if (map.getCurIndex(curX, curY).equals("o")){
-                player.restoreHealth();
-            }
+            feed();
             map.setCoord(curX, curY, ".");
             map.setCoord(curX, curY + 1, "-");
         }
         if (str.equals("s") && curY < map.getMaxRows() - 1){
             curY++;
-            if (map.getCurIndex(curX, curY).equals("o")){
-                player.restoreHealth();
-            }
+            feed();
             map.setCoord(curX, curY, ".");
             map.setCoord(curX, curY - 1, "-");
         }
         if (str.equals("d") && curX < map.getMaxColumns() - 1){
             curX++;
-            if (map.getCurIndex(curX, curY).equals("o")){
-                player.restoreHealth();
-            }
+            feed();
             map.setCoord(curX, curY, ".");
             map.setCoord(curX - 1, curY, "-");
         }
         if (str.equals("a") && curX > 0){
             curX--;
-            if (map.getCurIndex(curX, curY).equals("o")){
-                player.restoreHealth();
-            }
+            feed();
             map.setCoord(curX, curY, ".");
             map.setCoord(curX + 1, curY, "-");
         }
@@ -81,5 +73,11 @@ public class Game {
         int rX = (int) (Math.random() * 21) + 1;
         int rY = (int) (Math.random() * 5);
         map.setCoord(rX,rY,"o");
+    }
+
+    private void feed(){
+        if (map.getCurIndex(curX, curY).equals("o")){
+            player.restoreHealth();
+        }
     }
 }
