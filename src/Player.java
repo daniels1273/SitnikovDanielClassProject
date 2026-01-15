@@ -1,17 +1,21 @@
 public class Player {
 
     private int health;
-    private int maxHP;
+    private final int MAXHP;
     private int speed;
 
     public Player(){
         health = 25;
-        maxHP = health;
+        MAXHP = health;
         speed = 1;
     }
 
     public int getHealth(){
         return health;
+    }
+
+    public void restoreHealth(){
+        health = MAXHP + 1;
     }
 
     public void hurt(){

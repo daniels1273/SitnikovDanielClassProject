@@ -32,6 +32,10 @@ public class MapMaker {
         map[y][x] = str;
     }
 
+    public String getCurIndex(int x, int y){
+        return map[y][x];
+    }
+
     public int getMaxRows(){
         return rows;
     }
