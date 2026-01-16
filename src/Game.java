@@ -19,7 +19,7 @@ public class Game {
     }
 
     public void play(){
-        map.setCoord(curX,curY,".");
+        map.setCoord(curX,curY,"o");
         makeFood();
         map.printMap();
         System.out.println("Moves left: " + player.getHealth());
@@ -38,25 +38,25 @@ public class Game {
         if (str.equals("w") && curY > 0){
             curY--;
             feed();
-            map.setCoord(curX, curY, ".");
+            map.setCoord(curX, curY, "o");
             map.setCoord(curX, curY + 1, "-");
         }
         if (str.equals("s") && curY < map.getMaxRows() - 1){
             curY++;
             feed();
-            map.setCoord(curX, curY, ".");
+            map.setCoord(curX, curY, "o");
             map.setCoord(curX, curY - 1, "-");
         }
         if (str.equals("d") && curX < map.getMaxColumns() - 1){
             curX++;
             feed();
-            map.setCoord(curX, curY, ".");
+            map.setCoord(curX, curY, "o");
             map.setCoord(curX - 1, curY, "-");
         }
         if (str.equals("a") && curX > 0){
             curX--;
             feed();
-            map.setCoord(curX, curY, ".");
+            map.setCoord(curX, curY, "o");
             map.setCoord(curX + 1, curY, "-");
         }
         if (curX == 0){
@@ -70,13 +70,13 @@ public class Game {
     }
 
     private void makeFood(){
-        int rX = (int) (Math.random() * 21) + 1;
+        int rX = (int) (Math.random() * 20) + 1;
         int rY = (int) (Math.random() * 5);
-        map.setCoord(rX,rY,"o");
+        map.setCoord(rX,rY,".");
     }
 
     private void feed(){
-        if (map.getCurIndex(curX, curY).equals("o")){
+        if (map.getCurIndex(curX, curY).equals(".")){
             player.restoreHealth();
         }
     }
