@@ -21,6 +21,6 @@ public class Player {
     }
 
     public void die(){
-        health = 0;
+        health = 1;
     }
 }

@@ -80,14 +80,4 @@ public class MapMaker {
         }
     }
 
-    public String genChar(){
-        int r = (int) (Math.random() * 10) + 1;
-        if (r >= 6){
-            return ".";
-        } else if (r > 3) {
-            return "~";
-        } else {
-            return "-";
-        }
-    }
 }
