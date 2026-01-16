@@ -3,6 +3,8 @@ public class MapMaker {
     private String[][] map;
     private int rows;
     private int columns;
+    private int randDangerRow;
+    private int randDangerCol;
 
     public MapMaker() {
         rows = 5;
@@ -42,6 +44,40 @@ public class MapMaker {
 
     public int getMaxColumns(){
         return columns;
+    }
+
+    public void makeHazard1(){
+        randDangerRow = (int) (Math.random() * 3);
+        randDangerCol = (int) (Math.random() * 13) + 1;
+        for (int row = randDangerRow; row < randDangerRow + 3; row++){
+            for (int col = randDangerCol; col < randDangerCol + 8; col++){
+                map[row][col] = "!";
+            }
+        }
+    }
+
+    public void makeHazard2(){
+        for (int row = randDangerRow; row < randDangerRow + 3; row++){
+            for (int col = randDangerCol; col < randDangerCol + 8; col++){
+                map[row][col] = " ";
+            }
+        }
+    }
+
+    public void makeHazard3(){
+        for (int row = randDangerRow; row < randDangerRow + 3; row++){
+            for (int col = randDangerCol; col < randDangerCol + 8; col++){
+                map[row][col] = "O";
+            }
+        }
+    }
+
+    public void clearHazard(){
+        for (int row = randDangerRow; row < randDangerRow + 3; row++){
+            for (int col = randDangerCol; col < randDangerCol + 8; col++){
+                map[row][col] = "-";
+            }
+        }
     }
 
     public String genChar(){
