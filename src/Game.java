@@ -8,7 +8,6 @@ public class Game {
     private int curX;
     private int curY;
     private int totalMoves;
-    private int counter;
 
     public Game() {
         map = new MapMaker();
@@ -17,30 +16,39 @@ public class Game {
         curX = 1;
         curY = 0;
         totalMoves = 0;
-        counter = 0;
     }
 
     public void play(){
         System.out.println("Welcome, player!");
         System.out.println("The goal is simple, survive as long as possible!");
         System.out.println("Use wasd to move, collect the occasionally spawning '.', it's food to heal you! Also avoid the explosions! ( you'll know when you see :) )");
+        System.out.println("Don't worry though! If you get blown up, there's a chance you'll be revived! (You're welcome)");
         System.out.println("Also, the '~' to your left will kill you if you touch it, so don't do that");
         map.setCoord(curX,curY,"o");
         makeFood();
         map.printMap();
         System.out.println("Moves left: " + player.getHealth());
+
+        //Main loop of the game, runs while player health is greater than 0
+        //Gets user input for direction, then manages hazards and moving the player
+        //prints the map, decreases moves left and informs the player of it, then restart loop
         while (player.getHealth() > 0){
             String input = scan.nextLine();
-            hazardTracker();
+            map.hazardTracker();
             move(input);
             map.printMap();
             player.hurt();
             System.out.println("Moves left: " + player.getHealth());
         }
+
         System.out.println("Game over!");
         System.out.println("You survived: " + totalMoves + " movements!");
     }
 
+    //This method handles the players movement. It detects which way the player wants to go,
+    //moves the player that way, then replaces the tile behind the player with the normal bg ("-").
+    //Then it tests if the player is over the ~s,killing the player if so.
+    //Otherwise, it increases totalMoves and counter, creating food every 6th totalMove.
     private void move(String str){
         if (str.equals("w") && curY > 0){
             curY--;
@@ -70,8 +78,8 @@ public class Game {
             player.die();
         } else {
             totalMoves++;
-            counter++;
-            if (totalMoves % 10 == 0){
+            map.increaseCounter();
+            if (totalMoves % 6 == 0){
                 makeFood();
             }
         }
@@ -89,25 +97,6 @@ public class Game {
         }
         if (map.getCurIndex(curX,curY).equals("O")){
             player.die();
-        }
-    }
-
-    private void hazardTracker(){
-        if (counter == 2){
-            map.makeHazard1();
-        }
-        if (counter == 3){
-            map.makeHazard2();
-        }
-        if (counter == 4){
-            map.makeHazard3();
-        }
-        if (counter == 5){
-            map.clearHazard();
-            makeFood();
-        }
-        if (counter == 6){
-            counter = 0;
         }
     }
 }
